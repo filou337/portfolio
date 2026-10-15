@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Philippe Roumbo</title>
+<meta name="description" content="Portfolio de Philippe Roumbo, Consultant Data / Data Engineer : Azure Data Factory, Databricks, PySpark, Power BI, Azure DevOps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout : une page en bandes de sable ; le hero montre une coupe stratigraphique = architecture Bronze / Silver / Gold */
+:root{
+  --bg:#F4E8C1;
+  --surface:#FCF5DF;
+  --sand:#CBBD93;
+  --muted:#6F6650;
+  --accent:#574A24;
+  --ink:#2E2712;
+  --on-accent:#FAE8B4;
+  --line:rgba(87,74,36,.22);
+  --bedrock:#4A3F22;
+  --bronze:#9C6630;
+  --silver:#A8A491;
+  --gold:#C99A2E;
+  --strata-fg:#FDF6E2;
+  --dark-band:#2E2712;
+  --dark-band-fg:#FAE8B4;
+  --dark-band-muted:#CBBD93;
+  --display:'Bricolage Grotesque','Avenir Next','Segoe UI',sans-serif;
+  --body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --radius:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1D190D;--surface:#28220F;--sand:#4A4129;--muted:#BBAE86;--accent:#E3C878;--ink:#F5E9C4;--on-accent:#1D190D;
+    --line:rgba(227,200,120,.2);--bedrock:#3A321B;--bronze:#8E5A27;--silver:#7F7B6A;--gold:#B88B22;--strata-fg:#FDF6E2;
+    --dark-band:#120F07;--dark-band-fg:#F5E9C4;--dark-band-muted:#BBAE86;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1D190D;--surface:#28220F;--sand:#4A4129;--muted:#BBAE86;--accent:#E3C878;--ink:#F5E9C4;--on-accent:#1D190D;
+  --line:rgba(227,200,120,.2);--bedrock:#3A321B;--bronze:#8E5A27;--silver:#7F7B6A;--gold:#B88B22;--strata-fg:#FDF6E2;
+  --dark-band:#120F07;--dark-band-fg:#F5E9C4;--dark-band-muted:#BBAE86;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{margin:0;font-family:var(--body);font-size:16px;line-height:1.6;background:var(--bg);color:var(--ink)}
+::selection{background:var(--accent);color:var(--on-accent)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--ink);text-decoration:none}
+.brand span{color:var(--gold)}
+.nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;align-items:center}
+.nav ul a{text-decoration:none;font-weight:600;font-size:.9rem;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+.lang{font-family:var(--mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:5px 13px;cursor:pointer}
+.lang:hover{background:var(--accent);color:var(--on-accent)}
+@media(max-width:820px){.nav ul li.l{display:none}}
+
+/* Hero */
+.hero{padding-block:64px 72px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+.hero-grid > *{min-width:0}
+.status{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 15px 7px 12px;font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent)}
+.status i{width:9px;height:9px;border-radius:50%;background:#3E8E4E;box-shadow:0 0 0 4px rgba(62,142,78,.18);animation:pulse 2.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(62,142,78,.05)}}
+.hero h1{font-size:clamp(2.7rem,7vw,4.8rem);font-weight:800;letter-spacing:-.025em;margin:22px 0 10px}
+.role{font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.65rem);font-weight:500;color:var(--accent)}
+.pitch{margin-top:18px;max-width:58ch;font-size:1.06rem;color:var(--ink)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;text-decoration:none;border-radius:10px;padding:12px 20px;border:1.5px solid var(--accent);transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-ghost{color:var(--accent);background:transparent}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:24px;font-size:.88rem;color:var(--muted)}
+
+/* Strata */
+.strata{display:flex;flex-direction:column;gap:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.strata-head{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.layer{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;color:var(--strata-fg)}
+.layer b{font-family:var(--display);font-size:1.05rem;font-weight:700;display:block;line-height:1.2}
+.layer small{font-size:.8rem;opacity:.9;display:block}
+.layer .mono{font-size:.72rem;opacity:.9;text-align:right;flex:none}
+.layer.gold{background:var(--gold)}
+.layer.silver{background:var(--silver)}
+.layer.bronze{background:var(--bronze)}
+.layer.src{background:var(--bedrock)}
+.layer + .layer::before{content:"";position:absolute;left:0;right:0;top:-7px;height:8px;background:inherit;
+  -webkit-mask:radial-gradient(12px 8px at 12px 8px,#000 98%,transparent) 0 0/24px 8px repeat-x;
+  mask:radial-gradient(12px 8px at 12px 8px,#000 98%,transparent) 0 0/24px 8px repeat-x}
+.layer.out{background:var(--surface);color:var(--ink);border-top:1px dashed var(--line)}
+.layer.out .mono{color:var(--muted)}
+
+/* Sections */
+section{padding-block:76px}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:36px}
+.sec-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem);font-weight:800;letter-spacing:-.015em;margin-top:6px}
+.sec-head p{max-width:52ch;color:var(--muted)}
+
+/* Timeline */
+.timeline{display:grid;gap:22px}
+.job{display:grid;grid-template-columns:200px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)}
+.job:first-child{border-top:none;padding-top:0}
+.job > *{min-width:0}
+@media(max-width:700px){.job{grid-template-columns:1fr;gap:8px}}
+.job .when{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--muted);line-height:1.5}
+.job h3{font-size:1.4rem;font-weight:700}
+.job .title{font-weight:700;color:var(--accent);margin:2px 0 12px}
+.job ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.job li{position:relative;padding-left:22px}
+.job li::before{content:"";position:absolute;left:2px;top:.62em;width:10px;height:3px;border-radius:2px;background:var(--gold)}
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:34px}
+.edu div{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;background:var(--bg)}
+.edu b{font-family:var(--display);font-size:1.08rem;display:block;line-height:1.25;margin:4px 0}
+.edu span{color:var(--muted);font-size:.9rem}
+
+/* Projets */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font-family:var(--mono);font-size:.78rem;font-weight:600;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin-top:26px}
+.card{display:flex;flex-direction:column;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;min-width:0}
+.card .kind{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.pill{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:3px 8px}
+.pill.pro{background:var(--gold);color:#2E2712}
+.pill.perso{background:var(--sand);color:var(--ink)}
+.card h3{font-size:1.18rem;font-weight:700;line-height:1.25}
+.card p{font-size:.92rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.chip{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line);border-radius:6px;padding:3px 9px;color:var(--accent);background:var(--bg)}
+.card a.repo{font-weight:700;font-size:.88rem;text-decoration:none}
+.card a.repo:hover{text-decoration:underline}
+.note{margin-top:18px;font-size:.85rem;color:var(--muted)}
+
+.soon{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 32px;border:1.5px dashed var(--line);border-radius:var(--radius);padding:28px}
+.soon > div{min-width:0;max-width:60ch}
+.soon h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin:6px 0 10px}
+.soon p{color:var(--muted)}
+/* Compétences */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.skill{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--bg)}
+.skill h3{font-size:1.05rem;font-weight:700;margin-bottom:12px}
+.skill .chips{display:flex;flex-wrap:wrap;gap:7px}
+.langs{display:grid;gap:12px}
+.langs div{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:.9rem;font-weight:600}
+.langs .mono{font-size:.75rem;color:var(--muted)}
+.bar{grid-column:1/-1;height:7px;border-radius:9px;background:var(--sand);overflow:hidden}
+.bar b{display:block;height:100%;background:var(--accent)}
+
+/* Engagements */
+.engage{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.eng{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.eng h3{font-size:1.15rem;font-weight:700;margin:6px 0 8px}
+.eng p{font-size:.93rem;color:var(--muted)}
+.trophy{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.74rem;font-weight:600;background:var(--gold);color:#2E2712;border-radius:6px;padding:3px 9px}
+
+/* Contact */
+.contact{background:var(--dark-band);color:var(--dark-band-fg)}
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr}}
+.contact-grid > *{min-width:0}
+.contact h2{font-size:clamp(1.8rem,3.6vw,2.5rem);font-weight:800;margin:6px 0 14px}
+.contact p{color:var(--dark-band-muted);max-width:50ch}
+.contact .label{color:var(--dark-band-muted)}
+.contact a{color:var(--dark-band-fg)}
+.rows{display:grid;gap:10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(250,232,180,.22);border-radius:10px;padding:12px 14px}
+.row > div{min-width:0}
+.row .v{font-family:var(--mono);font-size:.9rem;overflow-wrap:anywhere}
+.row .k{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-band-muted);font-weight:600}
+.copy{flex:none;font-family:var(--mono);font-size:.74rem;font-weight:600;background:transparent;border:1px solid rgba(250,232,180,.4);color:var(--dark-band-fg);border-radius:8px;padding:6px 10px;cursor:pointer}
+.copy:hover{background:rgba(250,232,180,.12)}
+.seeking{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.seeking span{font-family:var(--mono);font-size:.74rem;border:1px solid rgba(250,232,180,.3);border-radius:6px;padding:3px 9px;color:var(--dark-band-fg)}
+footer{background:var(--dark-band);color:var(--dark-band-muted);border-top:1px solid rgba(250,232,180,.14);padding-block:20px;font-family:var(--mono);font-size:.74rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Philippe Roumbo<span>.</span></a>
+    <ul>
+      <li class="l"><a href="#parcours" data-en="Experience">Parcours</a></li>
+      <li class="l"><a href="#competences" data-en="Skills">Compétences</a></li>
+      <li class="l"><a href="#contact">Contact</a></li>
+      <li><button class="lang" id="langBtn" type="button" aria-label="Switch to English">EN</button></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="status"><i aria-hidden="true"></i><span data-en="Available now · Permanent or fixed-term role">Disponible dès maintenant · CDI ou CDD</span></span>
+        <h1>Philippe Roumbo</h1>
+        <p class="role" data-en="Data Consultant / Data Engineer">Consultant Data / Data Engineer</p>
+        <p class="pitch" data-en="Master's graduate in Big Data &amp; Business Intelligence. I build ingestion and transformation pipelines with Azure Data Factory, Databricks and PySpark, then turn the result into Power BI models and dashboards that business teams actually use.">Diplômé d'un master Big Data &amp; Business Intelligence. Je construis des pipelines d'ingestion et de transformation avec Azure Data Factory, Databricks et PySpark, puis j'en fais des modèles et des tableaux de bord Power BI que les équipes métier utilisent vraiment.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="#contact" data-en="Contact me">Me contacter</a>
+          <a class="btn btn-ghost" href="https://github.com/filou337" target="_blank" rel="noopener">GitHub ↗</a>
+        
+      <a class="btn btn-ghost" href="Portfolio_Philippe_Roumbo.pdf" target="_blank" rel="noopener" data-en="CV (PDF)">CV (PDF) ↓</a>
+    </div>
+        <div class="meta">
+          <span data-en="Bobigny · Paris area">Bobigny · Île-de-France</span>
+          <a href="https://www.linkedin.com/in/philippe-roumbo-69b42a2ab/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/filou337" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <figure class="strata" aria-label="Architecture médaillon : sources, Bronze, Silver, Gold, décision" style="margin:0">
+        <figcaption class="strata-head"><span class="label" data-en="What I build">Ce que je construis</span><span class="label">medallion</span></figcaption>
+        <div class="layer out"><div><b data-en="Decision">Décision</b><small data-en="Power BI dashboards, KPIs">Dashboards Power BI, KPI</small></div><span class="mono">DAX · Power Query</span></div>
+        <div class="layer gold"><div><b>Gold</b><small data-en="Star schemas ready for analysis">Modèles en étoile prêts à l'analyse</small></div><span class="mono">agrégats</span></div>
+        <div class="layer silver"><div><b>Silver</b><small data-en="Cleaned, checked, documented">Nettoyé, contrôlé, documenté</small></div><span class="mono">PySpark · Scala</span></div>
+        <div class="layer bronze"><div><b>Bronze</b><small data-en="Raw data, ingested as-is">Données brutes ingérées telles quelles</small></div><span class="mono">ADF · Databricks</span></div>
+        <div class="layer src"><div><b data-en="Sources">Sources</b><small data-en="ERP, CSV/TSV, APIs, Azure DevOps">ERP, CSV/TSV, API, Azure DevOps</small></div><span class="mono">multi-sources</span></div>
+      </figure>
+    </div>
+  </div>
+
+  <!-- PARCOURS -->
+  <section id="parcours" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label" data-en="Experience">Parcours</span><h2 data-en="Where I learned the job">Là où j'ai appris le métier</h2></div>
+      </div>
+      <div class="timeline">
+        <article class="job">
+          <div class="when"><span data-en="Mar. – Sep. 2026">Mars – sept. 2026</span><br>Vélizy-Villacoublay</div>
+          <div>
+            <h3>Colas Digital Solutions</h3>
+            <p class="title" data-en="Data Analyst · Internship">Data Analyst · Stage</p>
+            <ul>
+              <li data-en="Gathered business needs and translated them into business rules, data models and reporting.">Recueil des besoins métier et traduction en règles de gestion, modèles de données et reporting.</li>
+              <li data-en="Ingestion, cleaning and transformation with Azure Data Factory, Databricks, PySpark and Scala, on a Bronze / Silver / Gold architecture.">Ingestion, nettoyage et transformation avec Azure Data Factory, Databricks, PySpark et Scala, en architecture Bronze / Silver / Gold.</li>
+              <li data-en="Consistency and completeness checks, processing documentation, change tracking in Azure DevOps (CI/CD).">Contrôles de cohérence et de complétude, documentation des traitements, suivi des évolutions dans Azure DevOps (CI/CD).</li>
+              <li data-en="Data governance: data quality rules, reference data and documentation.">Gouvernance des données : règles de qualité, référentiels et documentation.</li>
+              <li data-en="Led an agentic AI project, from framing to delivery.">Conduite d'un projet d'IA agentique, du cadrage à la livraison.</li>
+              <li data-en="Star schemas and Power BI dashboards (Power Query, DAX); best-practice audits with Measure Killer.">Modèles en étoile et tableaux de bord Power BI (Power Query, DAX) ; audits de bonnes pratiques avec Measure Killer.</li>
+              <li data-en="Presented analyses and supported users, working with business and tech teams in Agile sprints.">Présentation des analyses et accompagnement des utilisateurs, en sprints Agile avec les équipes métier et techniques.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job">
+          <div class="when"><span data-en="Nov. 2025 – Feb. 2026">Nov. 2025 – févr. 2026</span><br>Villetaneuse</div>
+          <div>
+            <h3>DrNIKO / TECHNIKO</h3>
+            <p class="title" data-en="Data Consultant · Internship">Consultant Data · Stage</p>
+            <ul>
+              <li data-en="Client needs analysis, problem framing and definition of evaluation criteria.">Analyse des besoins clients, cadrage des problématiques et définition des critères d'évaluation.</li>
+              <li data-en="Benchmarks and scoring grids for medical AI solutions; operational and strategic recommendations.">Benchmarks et grilles de notation de solutions d'IA médicale ; recommandations opérationnelles et stratégiques.</li>
+              <li data-en="Summary decks presented to technical and non-technical audiences.">Supports de synthèse restitués à des interlocuteurs techniques et non techniques.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <div class="edu">
+        <div><span class="label">2024 – 2026</span><b data-en="Master's in Big Data &amp; Business Intelligence">Master Big Data &amp; Business Intelligence</b><span data-en="Sorbonne Paris Nord University · Graduated">Université Sorbonne Paris Nord · Diplômé</span></div>
+        <div><span class="label">2021 – 2024</span><b data-en="Bachelor's in Economics &amp; Management">Licence Économie-Gestion</b><span data-en="University of the French Antilles">Université des Antilles</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="wrap">
+      <div class="soon">
+        <div>
+          <span class="label" data-en="Projects">Projets</span>
+          <h2 data-en="Analytics engineering projects, coming soon">Projets d'analytics engineering, bientôt en ligne</h2>
+          <p data-en="I'm rebuilding my GitHub around analytics engineering: data models, tested and documented transformations, and analysis-ready layers for BI.">Je refais mon GitHub autour de l'analytics engineering : modélisation, transformations testées et documentées, couches prêtes pour la BI.</p>
+        </div>
+        <a class="btn btn-primary" href="https://github.com/filou337" target="_blank" rel="noopener" data-en="Follow my GitHub ↗">Suivre mon GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label" data-en="Skills">Compétences</span><h2 data-en="Tools I use every day">Les outils de tous les jours</h2></div>
+      </div>
+      <div class="skills">
+        <div class="skill"><h3 data-en="Data engineering &amp; cloud">Data engineering &amp; cloud</h3><div class="chips"><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span><span class="chip">PySpark</span><span class="chip">Delta Lake</span><span class="chip">ETL / ELT</span><span class="chip">Bronze / Silver / Gold</span><span class="chip">Kafka</span><span class="chip">Docker</span></div></div>
+        <div class="skill"><h3 data-en="Languages">Langages</h3><div class="chips"><span class="chip">SQL</span><span class="chip">Python</span><span class="chip">Scala</span><span class="chip">Pandas</span><span class="chip">DAX</span><span class="chip">M / Power Query</span><span class="chip">R</span></div></div>
+        <div class="skill"><h3 data-en="Analysis &amp; BI">Analyse &amp; BI</h3><div class="chips"><span class="chip">Power BI</span><span class="chip" data-en="Star schemas">Modèles en étoile</span><span class="chip">KPI</span><span class="chip">Measure Killer</span><span class="chip">Excel</span><span class="chip">Kibana</span></div></div>
+        <div class="skill"><h3 data-en="Quality &amp; delivery">Qualité &amp; livraison</h3><div class="chips"><span class="chip">Azure DevOps</span><span class="chip">CI/CD</span><span class="chip">Git / GitHub</span><span class="chip" data-en="Consistency checks">Contrôles de cohérence</span><span class="chip" data-en="Documentation">Documentation</span><span class="chip">Agile / Scrum</span></div></div>
+        <div class="skill"><h3 data-en="Spoken languages">Langues</h3>
+          <div class="langs">
+            <div><span data-en="French">Français</span><span class="mono">C2</span><span class="bar"><b style="width:100%"></b></span></div>
+            <div><span data-en="Creole">Créole</span><span class="mono">C2</span><span class="bar"><b style="width:100%"></b></span></div>
+            <div><span data-en="English">Anglais</span><span class="mono">B2</span><span class="bar"><b style="width:68%"></b></span></div>
+            <div><span data-en="Spanish">Espagnol</span><span class="mono">A2</span><span class="bar"><b style="width:34%"></b></span></div>
+          </div>
+        </div>
+        <div class="skill"><h3 data-en="Outside work">En dehors du travail</h3><div class="chips"><span class="chip" data-en="Calisthenics">Calisthénie</span><span class="chip" data-en="Manga &amp; webtoons">Mangas &amp; webtoons</span><span class="chip" data-en="Econometrics">Économétrie</span><span class="chip" data-en="Applied AI">IA appliquée</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENTS -->
+  <section id="engagements">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label" data-en="Involvement">Engagements</span><h2 data-en="Beyond the job">Au-delà du poste</h2></div>
+      </div>
+      <div class="engage">
+        <article class="eng">
+          <span class="label" data-en="May 2026">Mai 2026</span>
+          <h3 data-en="Coach, Colas Hackathon">Coach, Hackathon Colas</h3>
+          <p data-en="Coached ESTP and EFREI students: framing the need, structuring the solution, preparing the final pitch.">Accompagnement d'étudiants de l'ESTP et de l'EFREI : cadrage du besoin, structuration de la solution, préparation de la restitution.</p>
+          <span class="trophy" data-en="Team coached: 1st place">Équipe accompagnée : 1re place</span>
+        </article>
+        <article class="eng">
+          <span class="label" data-en="Ongoing">En cours</span>
+          <h3 data-en="Volunteer, Linkee">Bénévole, Linkee</h3>
+          <p data-en="Solidarity actions against food insecurity.">Actions solidaires contre la précarité alimentaire.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="label">Contact</span>
+        <h2 data-en="Looking for a data profile?">Vous cherchez un profil data ?</h2>
+        <p data-en="I'm looking for a permanent or fixed-term role in data engineering, data analysis, data consulting or business analysis, in the Paris area, hybrid or on-site. Available now.">Je recherche un CDI ou un CDD en data engineering, data analyse, data consulting ou business analysis, en Île-de-France, en hybride ou sur site. Disponible dès maintenant.</p>
+        <div class="seeking"><span>Analytics Engineer</span><span>Data Engineer</span><span>Consultant Data</span><span>Data Analyst</span><span>Business Analyst</span></div>
+      </div>
+      <div class="rows">
+        <div class="row"><div><div class="k">Email</div><div class="v" id="v-mail">roumbop@gmail.com</div></div><button class="copy" type="button" data-copy="v-mail" data-en="Copy">Copier</button></div>
+        <div class="row"><div><div class="k" data-en="Phone">Téléphone</div><div class="v" id="v-tel">+33 7 49 23 33 72</div></div><button class="copy" type="button" data-copy="v-tel" data-en="Copy">Copier</button></div>
+        <div class="row"><div><div class="k">LinkedIn</div><div class="v"><a href="https://www.linkedin.com/in/philippe-roumbo-69b42a2ab/" target="_blank" rel="noopener">in/philippe-roumbo ↗</a></div></div></div>
+        <div class="row"><div><div class="k">GitHub</div><div class="v"><a href="https://github.com/filou337" target="_blank" rel="noopener">github.com/filou337 ↗</a></div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Philippe Roumbo</span><span data-en="Raw data in, decisions out.">De la donnée brute à la décision.</span></div>
+</footer>
+
+<script>
+(function(){
+  // Bascule FR / EN
+  var nodes = document.querySelectorAll('[data-en]');
+  nodes.forEach(function(el){ el.dataset.fr = el.innerHTML; });
+  var lang = 'fr';
+  var btn = document.getElementById('langBtn');
+  function apply(l){
+    lang = l;
+    document.documentElement.lang = l;
+    nodes.forEach(function(el){ el.innerHTML = l === 'en' ? el.dataset.en : el.dataset.fr; });
+    btn.textContent = l === 'en' ? 'FR' : 'EN';
+    btn.setAttribute('aria-label', l === 'en' ? 'Passer en français' : 'Switch to English');
+    try { localStorage.setItem('pr-lang', l); } catch(e){}
+  }
+  btn.addEventListener('click', function(){ apply(lang === 'fr' ? 'en' : 'fr'); });
+  try { if (localStorage.getItem('pr-lang') === 'en') apply('en'); } catch(e){}
+
+  // Filtres projets
+  var fbtns = document.querySelectorAll('.filters button');
+  var cards = document.querySelectorAll('#cards .card');
+  fbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.dataset.f;
+      fbtns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      cards.forEach(function(c){ c.hidden = !(f === 'all' || c.dataset.cat.split(' ').indexOf(f) > -1); });
+    });
+  });
+
+  // Copier email / téléphone
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.dataset.copy);
+      var done = function(){ var t = b.textContent; b.textContent = lang === 'en' ? 'Copied' : 'Copié'; setTimeout(function(){ b.textContent = t; }, 1600); };
+      var fallback = function(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(el.textContent.trim()).then(done, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
