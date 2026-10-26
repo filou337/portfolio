@@ -188,6 +188,38 @@ section{padding-block:76px}
 .seeking span{font-family:var(--mono);font-size:.74rem;border:1px solid rgba(250,232,180,.3);border-radius:6px;padding:3px 9px;color:var(--dark-band-fg)}
 footer{background:var(--dark-band);color:var(--dark-band-muted);border-top:1px solid rgba(250,232,180,.14);padding-block:20px;font-family:var(--mono);font-size:.74rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* Fenêtre "Recevoir mon CV" */
+button.btn{font-family:inherit;cursor:pointer}
+.cv-dialog{border:none;padding:0;border-radius:18px;max-width:min(440px,calc(100vw - 32px));width:100%;background:var(--surface);color:var(--ink);box-shadow:0 24px 60px rgba(46,39,18,.35)}
+.cv-dialog::backdrop{background:rgba(29,25,13,.55);backdrop-filter:blur(3px)}
+.cv-dialog[open]{animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.cv-strata{display:flex;height:6px}.cv-strata i{flex:1}
+.cv-body{padding:24px 24px 22px}
+.cv-body h2{font-size:1.45rem;font-weight:800;margin:6px 0 8px}
+.cv-body p{color:var(--muted);font-size:.93rem}
+.cv-close{position:absolute;top:14px;right:12px;width:34px;height:34px;border-radius:50%;border:none;background:transparent;color:var(--muted);font-size:1.4rem;line-height:1;cursor:pointer}
+.cv-close:hover{background:var(--bg);color:var(--ink)}
+.cv-form{display:grid;gap:10px;margin-top:18px}
+.cv-form label{font-weight:700;font-size:.85rem}
+.cv-form input[type=email]{font:inherit;font-size:1rem;width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.cv-form input[type=email]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.cv-lang{display:grid;grid-template-columns:1fr 1fr;gap:8px;border:none;padding:0;margin:0}
+.cv-lang legend{font-weight:700;font-size:.85rem;margin-bottom:6px;padding:0}
+.cv-lang label{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-weight:600;font-size:.92rem;cursor:pointer}
+.cv-lang input{position:absolute;opacity:0;pointer-events:none}
+.cv-lang label:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--bg))}
+.cv-lang label:has(input:focus-visible){box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.cv-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cv-form .btn{justify-content:center;margin-top:4px}
+.cv-form .btn[disabled]{opacity:.65;cursor:progress;transform:none}
+.cv-legal{font-size:.75rem!important;margin-top:2px}
+.cv-msg{font-size:.9rem;font-weight:600;min-height:1.2em}
+.cv-msg.err{color:#B23A2A}
+.cv-done{text-align:center;padding:8px 0 4px}
+.cv-done .ok{width:54px;height:54px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;background:var(--gold);color:#2E2712;font-size:1.6rem;font-weight:800}
+.contact .btn-primary{background:var(--dark-band-fg);color:var(--dark-band);border-color:var(--dark-band-fg);margin-top:24px}
 </style>
 </head>
 <body>
@@ -213,7 +245,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <p class="role" data-en="Data Consultant / Data Engineer">Consultant Data / Data Engineer</p>
         <p class="pitch" data-en="Master's graduate in Big Data &amp; Business Intelligence. I build ingestion and transformation pipelines with Azure Data Factory, Databricks and PySpark, then turn the result into Power BI models and dashboards that business teams actually use.">Diplômé d'un master Big Data &amp; Business Intelligence. Je construis des pipelines d'ingestion et de transformation avec Azure Data Factory, Databricks et PySpark, puis j'en fais des modèles et des tableaux de bord Power BI que les équipes métier utilisent vraiment.</p>
         <div class="ctas">
-          <a class="btn btn-primary" href="#contact" data-en="Contact me">Me contacter</a>
+          <button class="btn btn-primary" type="button" data-open-cv data-en="Get my resume by email ✉">Recevoir CV + lettre par e-mail ✉</button>
+          <a class="btn btn-ghost" href="#contact" data-en="Contact me">Me contacter</a>
           <a class="btn btn-ghost" href="https://github.com/filou337" target="_blank" rel="noopener">GitHub ↗</a>
         
       <a class="btn btn-ghost" href="Portfolio_Philippe_Roumbo.pdf" target="_blank" rel="noopener" data-en="CV (PDF)">CV (PDF) ↓</a>
@@ -346,6 +379,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <span class="label">Contact</span>
         <h2 data-en="Looking for a data profile?">Vous cherchez un profil data ?</h2>
         <p data-en="I'm looking for a permanent or fixed-term role in data engineering, data analysis, data consulting or business analysis, in the Paris area, hybrid or on-site. Available now.">Je recherche un CDI ou un CDD en data engineering, data analyse, data consulting ou business analysis, en Île-de-France, en hybride ou sur site. Disponible dès maintenant.</p>
+        <button class="btn btn-primary" type="button" data-open-cv data-en="Get my resume by email ✉">Recevoir CV + lettre par e-mail ✉</button>
         <div class="seeking"><span>Analytics Engineer</span><span>Data Engineer</span><span>Consultant Data</span><span>Data Analyst</span><span>Business Analyst</span></div>
       </div>
       <div class="rows">
@@ -361,6 +395,37 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <footer>
   <div class="wrap"><span>© 2026 Philippe Roumbo</span><span data-en="Raw data in, decisions out.">De la donnée brute à la décision.</span></div>
 </footer>
+
+<dialog class="cv-dialog" id="cvDialog" aria-labelledby="cvTitle">
+  <div class="cv-strata" aria-hidden="true"><i style="background:var(--gold)"></i><i style="background:var(--silver)"></i><i style="background:var(--bronze)"></i><i style="background:var(--bedrock)"></i></div>
+  <button class="cv-close" type="button" data-close-cv aria-label="Fermer">×</button>
+  <div class="cv-body">
+    <div id="cvStep">
+      <span class="label" data-en="Resume">CV</span>
+      <h2 id="cvTitle" data-en="Receive my resume">Recevez mon CV et ma lettre</h2>
+      <p data-en="Leave your email address: within a minute you'll get my resume and cover letter as PDFs, in the language of your choice.">Laissez votre adresse e-mail : vous recevrez d'ici une minute mon CV et ma lettre de motivation en PDF, dans la langue de votre choix.</p>
+      <form class="cv-form" id="cvForm" novalidate>
+        <label for="cvEmail" data-en="Your professional email">Votre e-mail professionnel</label>
+        <input type="email" id="cvEmail" name="email" autocomplete="email" required placeholder="prenom.nom@entreprise.fr" maxlength="120">
+        <fieldset class="cv-lang">
+          <legend data-en="Documents language">Langue des documents</legend>
+          <label><input type="radio" name="doclang" value="fr" checked> 🇫🇷 Français</label>
+          <label><input type="radio" name="doclang" value="en"> 🇬🇧 English</label>
+        </fieldset>
+        <input class="cv-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="cv-msg" id="cvMsg" role="status" aria-live="polite"></div>
+        <button class="btn btn-primary" type="submit" id="cvSubmit" data-en="Send me the documents">Valider et recevoir les documents</button>
+        <p class="cv-legal" data-en="Your address is only used to send you this email.">Votre adresse sert uniquement à vous envoyer ce message.</p>
+      </form>
+    </div>
+    <div class="cv-done" id="cvDone" hidden>
+      <div class="ok" aria-hidden="true">✓</div>
+      <h2 data-en="It's on its way!">C'est envoyé !</h2>
+      <p data-en="Check your inbox (and your spam folder, just in case). Thanks for your interest!">Jetez un œil à votre boîte de réception (et aux spams, au cas où). Merci pour votre intérêt !</p>
+      <button class="btn btn-ghost" type="button" data-close-cv style="margin-top:18px" data-en="Close">Fermer</button>
+    </div>
+  </div>
+</dialog>
 
 <script>
 (function(){
@@ -401,6 +466,55 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         navigator.clipboard.writeText(el.textContent.trim()).then(done, fallback);
       } else { fallback(); }
     });
+  });
+
+  // Recevoir CV + lettre de motivation par e-mail, en FR ou EN (envoi via Google Apps Script, voir apps-script/)
+  var CV_ENDPOINT = 'COLLE_ICI_L_URL_DE_TON_APPLICATION_WEB_APPS_SCRIPT';
+  var dlg = document.getElementById('cvDialog');
+  var form = document.getElementById('cvForm');
+  var input = document.getElementById('cvEmail');
+  var msg = document.getElementById('cvMsg');
+  var submit = document.getElementById('cvSubmit');
+  var t = function(fr, en){ return lang === 'en' ? en : fr; };
+  function openCv(){
+    document.getElementById('cvStep').hidden = false;
+    document.getElementById('cvDone').hidden = true;
+    msg.textContent = ''; msg.className = 'cv-msg';
+    form.doclang.value = lang;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+  function closeCv(){ if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  document.querySelectorAll('[data-open-cv]').forEach(function(b){ b.addEventListener('click', openCv); });
+  document.querySelectorAll('[data-close-cv]').forEach(function(b){ b.addEventListener('click', closeCv); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) closeCv(); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = input.value.trim();
+    msg.className = 'cv-msg err';
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) {
+      msg.textContent = t('Cette adresse e-mail ne semble pas valide.', 'This email address does not look valid.');
+      input.focus(); return;
+    }
+    submit.disabled = true;
+    var label = submit.innerHTML;
+    submit.textContent = t('Envoi en cours…', 'Sending…');
+    msg.textContent = '';
+    fetch(CV_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ email: email, lang: form.doclang.value, website: form.website.value })
+    }).then(function(r){ return r.json(); }).then(function(res){
+      if (!res.ok) throw new Error(res.error || 'server');
+      document.getElementById('cvStep').hidden = true;
+      document.getElementById('cvDone').hidden = false;
+      form.reset();
+    }).catch(function(err){
+      msg.className = 'cv-msg err';
+      msg.textContent = err.message === 'invalid_email'
+        ? t('Cette adresse e-mail ne semble pas valide.', 'This email address does not look valid.')
+        : t("L'envoi n'a pas abouti. Vous pouvez télécharger le CV ou m'écrire à roumbop@gmail.com.", 'Sending failed. You can download the resume or email me at roumbop@gmail.com.');
+    }).finally(function(){ submit.disabled = false; submit.innerHTML = label; });
   });
 })();
 </script>
