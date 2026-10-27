@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Philippe Roumbo</title>
-<meta name="description" content="Portfolio de Philippe Roumbo, Consultant Data / Data Engineer : Azure Data Factory, Databricks, PySpark, Power BI, Azure DevOps.">
+<meta name="description" content="Projets de Philippe Roumbo en analytics engineering, gouvernance Power BI, data engineering, SQL, BI et machine learning. Code, réalisations et compétences.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -144,12 +144,26 @@ section{padding-block:76px}
 .chip{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line);border-radius:6px;padding:3px 9px;color:var(--accent);background:var(--bg)}
 .card a.repo{font-weight:700;font-size:.88rem;text-decoration:none}
 .card a.repo:hover{text-decoration:underline}
+.card .proof{font-size:.88rem;color:var(--ink);line-height:1.55}
+.card .proof strong{color:var(--accent)}
+.pill.progress{background:color-mix(in srgb,var(--gold) 28%,var(--surface));color:var(--ink);border:1px solid var(--line)}
+.card[hidden]{display:none}
+.project-intro{max-width:70ch;color:var(--muted);margin-top:-16px}
 .note{margin-top:18px;font-size:.85rem;color:var(--muted)}
 
 .soon{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 32px;border:1.5px dashed var(--line);border-radius:var(--radius);padding:28px}
 .soon > div{min-width:0;max-width:60ch}
 .soon h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin:6px 0 10px}
 .soon p{color:var(--muted)}
+
+.colas-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.colas-project.featured{grid-column:1/-1}
+.contributions{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:.9rem;line-height:1.6}
+.contributions li{position:relative;padding-left:17px}
+.contributions li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:3px;background:var(--gold)}
+.colas-project.featured .contributions{grid-template-columns:1fr 1fr;gap:12px 28px}
+@media(max-width:700px){.colas-grid,.colas-project.featured .contributions{grid-template-columns:1fr}.colas-project.featured{grid-column:auto}}
+
 /* Compétences */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .skill{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--bg)}
@@ -228,6 +242,8 @@ button.btn{font-family:inherit;cursor:pointer}
     <a class="brand" href="#top">Philippe Roumbo<span>.</span></a>
     <ul>
       <li class="l"><a href="#parcours" data-en="Experience">Parcours</a></li>
+      <li class="l"><a href="#projets-colas" data-en="At Colas">Chez Colas</a></li>
+      <li class="l"><a href="#projets" data-en="GitHub projects">Projets GitHub</a></li>
       <li class="l"><a href="#competences" data-en="Skills">Compétences</a></li>
       <li class="l"><a href="#contact">Contact</a></li>
       <li><button class="lang" id="langBtn" type="button" aria-label="Switch to English">EN</button></li>
@@ -242,14 +258,14 @@ button.btn{font-family:inherit;cursor:pointer}
       <div>
         <span class="status"><i aria-hidden="true"></i><span data-en="Available now · Permanent or fixed-term role">Disponible dès maintenant · CDI ou CDD</span></span>
         <h1>Philippe Roumbo</h1>
-        <p class="role" data-en="Data Consultant / Data Engineer">Consultant Data / Data Engineer</p>
-        <p class="pitch" data-en="Master's graduate in Big Data &amp; Business Intelligence. I build ingestion and transformation pipelines with Azure Data Factory, Databricks and PySpark, then turn the result into Power BI models and dashboards that business teams actually use.">Diplômé d'un master Big Data &amp; Business Intelligence. Je construis des pipelines d'ingestion et de transformation avec Azure Data Factory, Databricks et PySpark, puis j'en fais des modèles et des tableaux de bord Power BI que les équipes métier utilisent vraiment.</p>
+        <p class="role" data-en="Analytics Engineer · Data Consultant">Analytics Engineer · Consultant Data</p>
+        <p class="pitch" data-en="Master's graduate in Big Data &amp; Business Intelligence. My projects connect data ingestion, quality checks, analysis and BI: from streaming and SQL to Power BI governance and useful dashboards.">Diplômé d'un master Big Data &amp; Business Intelligence. Mes projets relient ingestion, contrôles de qualité, analyse et BI : du streaming et du SQL jusqu'à la gouvernance Power BI et aux tableaux de bord utiles.</p>
         <div class="ctas">
           <button class="btn btn-primary" type="button" data-open-cv data-en="Get my resume by email ✉">Recevoir CV + lettre par e-mail ✉</button>
           <a class="btn btn-ghost" href="#contact" data-en="Contact me">Me contacter</a>
           <a class="btn btn-ghost" href="https://github.com/filou337" target="_blank" rel="noopener">GitHub ↗</a>
         
-      <a class="btn btn-ghost" href="Portfolio_Philippe_Roumbo.pdf" target="_blank" rel="noopener" data-en="CV (PDF)">CV (PDF) ↓</a>
+      <a class="btn btn-ghost" href="CV_Philippe_ROUMBO_Analytics_Engineer_FR.pdf" target="_blank" rel="noopener" data-en="Resume (PDF) ↗">CV (PDF) ↗</a>
     </div>
         <div class="meta">
           <span data-en="Bobigny · Paris area">Bobigny · Île-de-France</span>
@@ -282,13 +298,8 @@ button.btn{font-family:inherit;cursor:pointer}
             <h3>Colas Digital Solutions</h3>
             <p class="title" data-en="Data Analyst · Internship">Data Analyst · Stage</p>
             <ul>
-              <li data-en="Gathered business needs and translated them into business rules, data models and reporting.">Recueil des besoins métier et traduction en règles de gestion, modèles de données et reporting.</li>
-              <li data-en="Ingestion, cleaning and transformation with Azure Data Factory, Databricks, PySpark and Scala, on a Bronze / Silver / Gold architecture.">Ingestion, nettoyage et transformation avec Azure Data Factory, Databricks, PySpark et Scala, en architecture Bronze / Silver / Gold.</li>
-              <li data-en="Consistency and completeness checks, processing documentation, change tracking in Azure DevOps (CI/CD).">Contrôles de cohérence et de complétude, documentation des traitements, suivi des évolutions dans Azure DevOps (CI/CD).</li>
-              <li data-en="Data governance: data quality rules, reference data and documentation.">Gouvernance des données : règles de qualité, référentiels et documentation.</li>
-              <li data-en="Led an agentic AI project, from framing to delivery.">Conduite d'un projet d'IA agentique, du cadrage à la livraison.</li>
-              <li data-en="Star schemas and Power BI dashboards (Power Query, DAX); best-practice audits with Measure Killer.">Modèles en étoile et tableaux de bord Power BI (Power Query, DAX) ; audits de bonnes pratiques avec Measure Killer.</li>
-              <li data-en="Presented analyses and supported users, working with business and tech teams in Agile sprints.">Présentation des analyses et accompagnement des utilisateurs, en sprints Agile avec les équipes métier et techniques.</li>
+              <li data-en="Within the Data &amp; AI department’s BI team, contributed across the analytics product lifecycle, from business requirements to reporting.">Au sein de l’équipe BI de la Direction Data &amp; IA, intervention sur le cycle de vie des produits décisionnels, du besoin métier à la restitution.</li>
+              <li data-en="Collaborated with business and technical teams in Agile sprints, presenting analyses and supporting users.">Collaboration avec les équipes métier et techniques en sprints Agile, avec présentation des analyses et accompagnement des utilisateurs.</li>
             </ul>
           </div>
         </article>
@@ -312,16 +323,99 @@ button.btn{font-family:inherit;cursor:pointer}
     </div>
   </section>
 
-  <!-- PROJETS -->
+  <!-- PROJETS CHEZ COLAS -->
+  <section id="projets-colas" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="label" data-en="Professional experience · 2026">Expérience professionnelle · 2026</span><h2 data-en="Projects at Colas">Projets chez Colas</h2></div>
+        <p data-en="During my internship at Colas Digital Solutions, I worked on BI product reliability, model evolution and data preparation. Here are the objectives and my contributions across five projects.">Pendant mon stage chez Colas Digital Solutions, j’ai travaillé sur la fiabilité des produits BI, l’évolution des modèles et la préparation des données. Voici les objectifs et mes contributions sur cinq projets.</p>
+      </div>
+      <div class="cards colas-grid">
+        <article class="card colas-project featured">
+<span class="label" data-en="Colas Digital Solutions · internship">Colas Digital Solutions · stage</span>
+<h3 data-en="Power BI governance and audit prototype">Gouvernance Power BI et prototype d’audit</h3>
+<p data-en="Structure BI product reviews to make checks more consistent, explainable and traceable.">Structurer les revues des produits BI pour rendre les contrôles plus cohérents, explicables et traçables.</p>
+<ul class="contributions">
+<li data-en="Formalized a 59-rule best-practice framework and distinguished automatable technical checks from reviews requiring judgment.">Formalisation d’un référentiel de 59 règles de bonnes pratiques et distinction entre contrôles techniques automatisables et vérifications nécessitant du jugement.</li>
+<li data-en="Developed a Python / PowerShell prototype to examine PBIP / TMDL metadata: field properties, aggregations and model relationships.">Développement d’un prototype Python / PowerShell pour examiner les métadonnées PBIP / TMDL : propriétés des champs, agrégations et relations du modèle.</li>
+<li data-en="Produced OK / KO / NA outcomes with technical evidence to support reviews and identify required fixes.">Production de statuts OK / KO / NA accompagnés de preuves techniques, pour faciliter la revue et identifier les corrections à apporter.</li>
+<li data-en="Worked on review standardization, rule documentation and reproducible checks.">Travail sur la standardisation des revues, la documentation des règles et la reproductibilité des contrôles.</li>
+</ul>
+<div class="tags"><span class="chip">Power BI</span><span class="chip">Python</span><span class="chip">PowerShell</span><span class="chip">PBIP / TMDL</span><span class="chip">Gouvernance</span></div>
+</article>
+        <article class="card colas-project">
+<span class="label" data-en="Colas Digital Solutions · internship">Colas Digital Solutions · stage</span>
+<h3 data-en="CI/CD monitoring of Pull Requests">Monitoring CI/CD des Pull Requests</h3>
+<p data-en="Power BI report tracking BI teams’ Pull Requests through the Azure DevOps API to identify pending changes across environments.">Rapport Power BI de suivi des Pull Requests des équipes BI à partir de l’API Azure DevOps, pour repérer les évolutions en attente dans les environnements.</p>
+<ul class="contributions">
+<li data-en="Implemented paginated extraction from the Azure DevOps API directly in Power Query.">Extraction paginée de l’API Azure DevOps directement dans Power Query.</li>
+<li data-en="Built 48-hour, week and older tracking windows using a disconnected period table and DAX measures.">Fenêtres de suivi « 48 h », « semaine » et « au-delà », pilotées par une table de période déconnectée et des mesures DAX.</li>
+<li data-en="Designed a process overview and a drill-through detail page to explore individual Pull Requests.">Vue d’ensemble du processus et page de détail accessible en drill-through pour explorer une Pull Request.</li>
+<li data-en="Investigated refresh performance in Power BI Service.">Diagnostic des performances de rafraîchissement dans Power BI Service.</li>
+</ul>
+<div class="tags"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Power Query M</span><span class="chip">Azure DevOps</span><span class="chip">CI/CD</span></div>
+</article>
+        <article class="card colas-project">
+<span class="label" data-en="Colas Digital Solutions · internship">Colas Digital Solutions · stage</span>
+<h3 data-en="Extension of a shared semantic model">Extension d’un modèle sémantique partagé</h3>
+<p data-en="Added a carbon reference dataset — emission factors and categories — to a Power BI model used for self-service reporting by a subsidiary.">Ajout d’un référentiel carbone — facteurs d’émission et catégories — à un modèle Power BI utilisé en libre-service par une filiale.</p>
+<ul class="contributions">
+<li data-en="Created a dimension and a one-to-many relationship, checking orphan keys and key uniqueness.">Création d’une dimension et d’une relation un-à-plusieurs, avec contrôle des clés orphelines et de l’unicité.</li>
+<li data-en="Prepared the model for self-service use with business-friendly names, organized fields, hidden technical keys and field descriptions.">Préparation au libre-service : noms métier, champs organisés, clés techniques masquées et descriptions des champs.</li>
+<li data-en="Checked duplicates, null values and French / English labels.">Contrôles des doublons, des valeurs nulles et des libellés français / anglais.</li>
+<li data-en="Verified access permissions and row-level security (RLS) before publication, reusing the existing model.">Vérification des droits d’accès et de la sécurité au niveau des lignes (RLS) avant publication, en réutilisant le modèle existant.</li>
+</ul>
+<div class="tags"><span class="chip">Power BI</span><span class="chip">Modèle sémantique</span><span class="chip">Power Query M</span><span class="chip">Databricks</span><span class="chip">RLS</span></div>
+</article>
+        <article class="card colas-project">
+<span class="label" data-en="Colas Digital Solutions · internship">Colas Digital Solutions · stage</span>
+<h3 data-en="Report migration following a data lake redesign">Migration d’un rapport après refonte du datalake</h3>
+<p data-en="Adapted a Power BI report to a new carbon reference model after a data model redesign, preserving analyses, filters and translations.">Adaptation d’un rapport Power BI au nouveau référentiel carbone après refonte du modèle de données, avec conservation des analyses, filtres et traductions.</p>
+<ul class="contributions">
+<li data-en="Used native Databricks queries and query folding through Value.NativeQuery to push supported transformations to the source.">Requêtes natives vers Databricks avec query folding via Value.NativeQuery, pour faire exécuter les transformations compatibles à la source.</li>
+<li data-en="Centralized connection parameters to handle environments without hardcoding them.">Centralisation des paramètres de connexion pour gérer les environnements sans les coder en dur.</li>
+<li data-en="Reworked model relationships and searched for remaining dependencies on the old structure.">Reprise des relations du modèle et recherche des dépendances résiduelles vers l’ancienne structure.</li>
+<li data-en="Performed regression checks to verify consistent results and report behavior.">Tests de non-régression pour vérifier la continuité des résultats et le fonctionnement du rapport.</li>
+</ul>
+<div class="tags"><span class="chip">Power BI</span><span class="chip">Power Query M</span><span class="chip">Databricks</span><span class="chip">SQL</span><span class="chip">Non-régression</span></div>
+</article>
+        <article class="card colas-project">
+<span class="label" data-en="Colas Digital Solutions · internship">Colas Digital Solutions · stage</span>
+<h3 data-en="Data ingestion and transformation on Azure">Ingestion et transformation de données sur Azure</h3>
+<p data-en="Contributed to data preparation in a Bronze / Silver / Gold architecture, from ingestion to analysis-ready layers.">Participation à des traitements de préparation des données dans une architecture Bronze / Silver / Gold, de l’ingestion aux couches prêtes pour l’analyse.</p>
+<ul class="contributions">
+<li data-en="Worked on Azure Data Factory flows to orchestrate data ingestion.">Travaux sur des flux Azure Data Factory pour orchestrer l’ingestion de données.</li>
+<li data-en="Implemented Databricks transformations in PySpark / Scala to clean data and prepare lakehouse layers.">Transformations dans Databricks en PySpark / Scala pour nettoyer les données et préparer les couches du lakehouse.</li>
+<li data-en="Applied consistency and completeness checks, documenting processing steps and rules.">Contrôles de cohérence et de complétude, avec documentation des traitements et règles appliquées.</li>
+<li data-en="Tracked changes in Azure DevOps in connection with BI reporting needs.">Suivi des évolutions dans Azure DevOps en lien avec les besoins de restitution BI.</li>
+</ul>
+<div class="tags"><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span><span class="chip">PySpark / Scala</span><span class="chip">Delta Lake</span><span class="chip">Azure DevOps</span></div>
+</article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS GITHUB -->
   <section id="projets">
     <div class="wrap">
-      <div class="soon">
-        <div>
-          <span class="label" data-en="Projects">Projets</span>
-          <h2 data-en="Analytics engineering projects, coming soon">Projets d'analytics engineering, bientôt en ligne</h2>
-          <p data-en="I'm rebuilding my GitHub around analytics engineering: data models, tested and documented transformations, and analysis-ready layers for BI.">Je refais mon GitHub autour de l'analytics engineering : modélisation, transformations testées et documentées, couches prêtes pour la BI.</p>
-        </div>
-        <a class="btn btn-primary" href="https://github.com/filou337" target="_blank" rel="noopener" data-en="Follow my GitHub ↗">Suivre mon GitHub ↗</a>
+      <div class="sec-head">
+        <div><span class="label" data-en="My pinned GitHub projects">Mes projets GitHub épinglés</span><h2 data-en="Projects that demonstrate my skills">Des projets pour montrer mon savoir-faire</h2></div>
+        <p data-en="A selection of personal and academic projects: the question, the work delivered and the skills put into practice.">Une sélection de mes projets personnels et académiques : problématique, réalisation et compétences mises en pratique.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrer les projets GitHub">
+<button type="button" data-f="all" aria-pressed="true" data-en="All">Tous</button>
+<button type="button" data-f="analytics" aria-pressed="false" data-en="Analytics &amp; BI">Analyse &amp; BI</button>
+<button type="button" data-f="engineering" aria-pressed="false" data-en="Streaming">Streaming</button>
+<button type="button" data-f="ml" aria-pressed="false" data-en="AI &amp; NLP">IA &amp; NLP</button>
+<button type="button" data-f="algorithms" aria-pressed="false" data-en="Algorithms">Algorithmique</button>
+      </div>
+      <div class="cards" id="cards">
+        <article class="card" data-cat="analytics"><span class="pill perso" data-en="Analytics · public data">Analyse · données publiques</span><h3 data-en="RoadSafe Chicago · crash analysis">RoadSafe Chicago · accidentologie</h3><p data-en="Understand the frequency and severity of 112,056 crashes recorded in Chicago in 2024.">Comprendre la fréquence et la gravité de 112 056 accidents enregistrés à Chicago en 2024.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; API collection, quality checks, temporal and spatial analysis, statistical tests and a Streamlit dashboard."><strong>Réalisation :</strong> Collecte API, contrôles qualité, analyses temporelles et spatiales, tests statistiques et restitution Streamlit.</p><p class="proof" data-en="Skills: data preparation, statistical reasoning, mapping and communicating results.">Compétences : préparation de données, raisonnement statistique, cartographie et restitution des résultats.</p><div class="tags"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">statsmodels</span><span class="chip">Folium</span><span class="chip">Streamlit</span></div><a class="repo" href="https://github.com/filou337/Accident-de-la-route-Chicago" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
+        <article class="card" data-cat="analytics"><span class="pill perso" data-en="BI · environment">BI · environnement</span><h3 data-en="Tree planting · project monitoring">Arbres plantés · suivi des projets</h3><p data-en="Make tree-planting data understandable and support project monitoring through a Power BI report.">Rendre les données de plantation lisibles et faciliter le suivi des projets dans un rapport Power BI.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; An interactive report based on an Excel file, with a summary view and ways to explore tree-planting data."><strong>Réalisation :</strong> Rapport interactif à partir d’un fichier Excel, avec une vue de synthèse et des possibilités d’exploration des plantations.</p><p class="proof" data-en="Skills: structuring data, selecting metrics and designing useful visualizations.">Compétences : structuration de données, choix d’indicateurs et conception de visualisations utiles.</p><div class="tags"><span class="chip">Power BI</span><span class="chip">Excel</span><span class="chip">KPI</span><span class="chip">DataViz</span></div><a class="repo" href="https://github.com/filou337/Arbres_plantes_dashboard" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
+        <article class="card" data-cat="ml"><span class="pill perso" data-en="NLP · machine learning">NLP · machine learning</span><h3 data-en="Films · Word2Vec and clustering">Films · Word2Vec et clustering</h3><p data-en="Explore film synopsis themes and examine features associated with box-office revenue.">Explorer les thèmes des synopsis de films et étudier les variables associées aux recettes du box-office.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; Text cleaning, skip-gram embeddings, PCA/t-SNE projections, K-Means clustering and supervised revenue models."><strong>Réalisation :</strong> Nettoyage des textes, embeddings skip-gram, projections PCA/t-SNE, clustering K-Means et modèles supervisés sur les recettes.</p><p class="proof" data-en="Skills: text preparation, vector representations, exploration and model interpretation.">Compétences : préparation de texte, représentation vectorielle, exploration et interprétation des modèles.</p><div class="tags"><span class="chip">Python</span><span class="chip">Word2Vec</span><span class="chip">PCA / t-SNE</span><span class="chip">K-Means</span></div><a class="repo" href="https://github.com/filou337/Analyse-Word2Vec-Films" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
+        <article class="card" data-cat="algorithms"><span class="pill perso" data-en="Learning project · cryptography">Projet pédagogique · cryptographie</span><h3 data-en="Diffie-Hellman, RSA and ECDSA">Diffie-Hellman, RSA et ECDSA</h3><p data-en="Understand public-key cryptography by implementing its mechanisms in Python.">Comprendre les mécanismes de la cryptographie à clé publique en les implémentant en Python.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; Modular arithmetic, key exchange, encryption and signatures in a reproducible notebook with educational parameters."><strong>Réalisation :</strong> Arithmétique modulaire, échange de clés, chiffrement et signature dans un notebook reproductible à paramètres pédagogiques.</p><p class="proof" data-en="Skills: algorithms, mathematical reasoning, result verification and documented code.">Compétences : algorithmique, raisonnement mathématique, vérification des résultats et code commenté.</p><div class="tags"><span class="chip">Python</span><span class="chip">Algorithmique</span><span class="chip">RSA</span><span class="chip">ECDSA</span></div><a class="repo" href="https://github.com/filou337/HR-et-RSA-" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
+        <article class="card" data-cat="ml"><span class="pill perso" data-en="Two-person project · NLP">Projet en binôme · NLP</span><h3 data-en="Transformers · French text summarization">Transformers · résumé de texte français</h3><p data-en="Connect attention-mechanism theory with a French text summarization application.">Relier la théorie des mécanismes d’attention à une application de résumé automatique en français.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; Use of pretrained BARThez, cross-attention exploration and summary evaluation with ROUGE, BERTScore and compression ratio."><strong>Réalisation :</strong> Utilisation de BARThez pré-entraîné, exploration de la cross-attention et évaluation du résumé par ROUGE, BERTScore et taux de compression.</p><p class="proof" data-en="Skills: using pretrained models, NLP evaluation and technical explanation.">Compétences : utilisation de modèles pré-entraînés, évaluation NLP et pédagogie technique.</p><div class="tags"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">Hugging Face</span><span class="chip">NLP</span></div><a class="repo" href="https://github.com/filou337/Transformers-" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
+        <article class="card" data-cat="engineering"><span class="pill perso" data-en="Two-person project · streaming">Projet en binôme · streaming</span><h3 data-en="FHIR · blood-pressure event stream">FHIR · flux de pression artérielle</h3><p data-en="Process simulated FHIR observations and distinguish ordinary measurements from alerts in a real-time stream.">Traiter des observations FHIR simulées et distinguer les mesures courantes des alertes dans un flux temps réel.</p><p class="proof" data-en="&lt;strong&gt;Built:&lt;/strong&gt; Python producer and consumer, Kafka routing, JSONL archiving, Elasticsearch indexing and Kibana visualization."><strong>Réalisation :</strong> Producteur et consommateur Python, routage Kafka, archivage JSONL, indexation Elasticsearch et visualisation Kibana.</p><p class="proof" data-en="Skills: event-driven architecture, message validation and service integration with Docker.">Compétences : architecture événementielle, validation des messages et intégration de services avec Docker.</p><div class="tags"><span class="chip">Python</span><span class="chip">Kafka</span><span class="chip">FHIR</span><span class="chip">Elasticsearch</span><span class="chip">Docker</span></div><a class="repo" href="https://github.com/filou337/FHIR_BP_Observations" target="_blank" rel="noopener" data-en="Explore the project ↗">Explorer le projet ↗</a></article>
       </div>
     </div>
   </section>
@@ -384,7 +478,6 @@ button.btn{font-family:inherit;cursor:pointer}
       </div>
       <div class="rows">
         <div class="row"><div><div class="k">Email</div><div class="v" id="v-mail">roumbop@gmail.com</div></div><button class="copy" type="button" data-copy="v-mail" data-en="Copy">Copier</button></div>
-        <div class="row"><div><div class="k" data-en="Phone">Téléphone</div><div class="v" id="v-tel">+33 7 49 23 33 72</div></div><button class="copy" type="button" data-copy="v-tel" data-en="Copy">Copier</button></div>
         <div class="row"><div><div class="k">LinkedIn</div><div class="v"><a href="https://www.linkedin.com/in/philippe-roumbo-69b42a2ab/" target="_blank" rel="noopener">in/philippe-roumbo ↗</a></div></div></div>
         <div class="row"><div><div class="k">GitHub</div><div class="v"><a href="https://github.com/filou337" target="_blank" rel="noopener">github.com/filou337 ↗</a></div></div></div>
       </div>
