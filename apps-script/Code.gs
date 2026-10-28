@@ -2,7 +2,7 @@
  * Portfolio Philippe Roumbo — envoi automatique du CV par e-mail.
  *
  * Déployé en "Application Web" Google Apps Script (voir README-envoi-cv.md).
- * Le portfolio envoie { email, lang, website } en POST ; ce script :
+ * Le portfolio envoie { email, lang, website, resend } en POST ; ce script :
  *   1. vérifie l'adresse et les garde-fous anti-abus,
  *   2. envoie au visiteur un e-mail soigné avec le CV et la lettre de motivation
  *      en pièces jointes, dans la langue choisie (fr ou en),
@@ -29,7 +29,8 @@ const CONFIG = {
   LINKEDIN_URL: 'https://www.linkedin.com/in/philippe-roumbo-69b42a2ab/',
   PHONE: '+33 7 49 23 33 72',
   MAX_PER_DAY: 40,                     // plafond global d'envois par jour
-  SAME_EMAIL_COOLDOWN_H: 12            // une même adresse ne reçoit le CV qu'une fois / 12 h
+  SAME_EMAIL_COOLDOWN_H: 12,           // une même adresse ne reçoit le CV qu'une fois / 12 h…
+  MAX_RESENDS: 2                       // …sauf renvoi confirmé par le visiteur, au plus 2 fois sur cette période
 };
 
 function doPost(e) {
@@ -37,6 +38,7 @@ function doPost(e) {
     const body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     const email = String(body.email || '').trim().toLowerCase();
     const lang = body.lang === 'en' ? 'en' : 'fr';
+    const resend = body.resend === true;
 
     // Champ piège invisible : un humain ne le remplit jamais.
     if (body.website) return json_({ ok: true });
@@ -50,7 +52,10 @@ function doPost(e) {
     try {
       const cache = CacheService.getScriptCache();
       const key = 'sent_' + Utilities.base64EncodeWebSafe(email);
-      if (cache.get(key)) return json_({ ok: true, already: true });
+      // Déjà envoyé récemment : le portfolio demande confirmation, puis rappelle avec resend: true.
+      const sent = Number(cache.get(key) || 0);
+      if (sent && !resend) return json_({ ok: true, already: true });
+      if (sent > CONFIG.MAX_RESENDS) return json_({ ok: false, error: 'too_many' });
 
       const props = PropertiesService.getScriptProperties();
       const today = Utilities.formatDate(new Date(), 'Europe/Paris', 'yyyy-MM-dd');
@@ -61,7 +66,7 @@ function doPost(e) {
 
       sendCv_(email, lang);
       props.setProperties({ day: today, count: String(count + 1) });
-      cache.put(key, '1', CONFIG.SAME_EMAIL_COOLDOWN_H * 3600);
+      cache.put(key, String(sent + 1), CONFIG.SAME_EMAIL_COOLDOWN_H * 3600);
     } finally {
       lock.releaseLock();
     }
@@ -69,7 +74,7 @@ function doPost(e) {
     if (CONFIG.NOTIFY_TO) {
       MailApp.sendEmail({
         to: CONFIG.NOTIFY_TO,
-        subject: 'Portfolio : CV + LM envoyés à ' + email + ' (' + lang.toUpperCase() + ')',
+        subject: 'Portfolio : CV + LM ' + (resend ? 'renvoyés' : 'envoyés') + ' à ' + email + ' (' + lang.toUpperCase() + ')',
         body: 'Ton CV et ta lettre de motivation viennent d\'être envoyés automatiquement à ' + email + ' (langue : ' + lang + ') depuis ton portfolio.\n\n'
             + 'Pense à le relancer dans quelques jours si c\'est un recruteur.'
       });

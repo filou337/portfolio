@@ -232,6 +232,8 @@ button.btn{font-family:inherit;cursor:pointer}
 .cv-msg{font-size:.9rem;font-weight:600;min-height:1.2em}
 .cv-msg.err{color:#B23A2A}
 .cv-done{text-align:center;padding:8px 0 4px}
+.cv-again-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+.cv-again-btns .btn[disabled]{opacity:.65;cursor:progress;transform:none}
 .cv-done .ok{width:54px;height:54px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;background:var(--gold);color:#2E2712;font-size:1.6rem;font-weight:800}
 .contact .btn-primary{background:var(--dark-band-fg);color:var(--dark-band);border-color:var(--dark-band-fg);margin-top:24px}
 </style>
@@ -517,6 +519,16 @@ button.btn{font-family:inherit;cursor:pointer}
       <p data-en="Check your inbox (and your spam folder, just in case). Thanks for your interest!">Jetez un œil à votre boîte de réception (et aux spams, au cas où). Merci pour votre intérêt !</p>
       <button class="btn btn-ghost" type="button" data-close-cv style="margin-top:18px" data-en="Close">Fermer</button>
     </div>
+    <div class="cv-done" id="cvAgain" hidden>
+      <div class="ok" aria-hidden="true">↻</div>
+      <h2 data-en="Already sent">Déjà envoyé</h2>
+      <p id="cvAgainTxt"></p>
+      <div class="cv-msg err" id="cvAgainMsg" role="status" aria-live="polite"></div>
+      <div class="cv-again-btns">
+        <button class="btn btn-primary" type="button" id="cvResend" data-en="Yes, send again">Oui, renvoyer</button>
+        <button class="btn btn-ghost" type="button" data-close-cv data-en="No, thanks">Non, merci</button>
+      </div>
+    </div>
   </div>
 </dialog>
 
@@ -569,9 +581,14 @@ button.btn{font-family:inherit;cursor:pointer}
   var msg = document.getElementById('cvMsg');
   var submit = document.getElementById('cvSubmit');
   var t = function(fr, en){ return lang === 'en' ? en : fr; };
+  var resendBtn = document.getElementById('cvResend');
+  var againMsg = document.getElementById('cvAgainMsg');
+  var pending = null; // { email, lang } en attente de confirmation de renvoi
+  function show(id){
+    ['cvStep', 'cvDone', 'cvAgain'].forEach(function(s){ document.getElementById(s).hidden = s !== id; });
+  }
   function openCv(){
-    document.getElementById('cvStep').hidden = false;
-    document.getElementById('cvDone').hidden = true;
+    show('cvStep');
     msg.textContent = ''; msg.className = 'cv-msg';
     form.doclang.value = lang;
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
@@ -589,26 +606,49 @@ button.btn{font-family:inherit;cursor:pointer}
       msg.textContent = t('Cette adresse e-mail ne semble pas valide.', 'This email address does not look valid.');
       input.focus(); return;
     }
-    submit.disabled = true;
-    var label = submit.innerHTML;
-    submit.textContent = t('Envoi en cours…', 'Sending…');
     msg.textContent = '';
+    send({ email: email, lang: form.doclang.value, website: form.website.value }, submit, msg);
+  });
+  // Renvoi confirmé depuis la fenêtre « Déjà envoyé »
+  resendBtn.addEventListener('click', function(){
+    if (!pending) return;
+    againMsg.textContent = '';
+    send({ email: pending.email, lang: pending.lang, resend: true }, resendBtn, againMsg);
+  });
+  function send(payload, button, out){
+    button.disabled = true;
+    var label = button.innerHTML;
+    button.textContent = t('Envoi en cours…', 'Sending…');
     fetch(CV_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ email: email, lang: form.doclang.value, website: form.website.value })
+      body: JSON.stringify(payload)
     }).then(function(r){ return r.json(); }).then(function(res){
       if (!res.ok) throw new Error(res.error || 'server');
-      document.getElementById('cvStep').hidden = true;
-      document.getElementById('cvDone').hidden = false;
+      if (res.already) {
+        // Le script refuse encore le renvoi (ancienne version déployée) : on ne boucle pas.
+        if (payload.resend) throw new Error('too_many');
+        pending = { email: payload.email, lang: payload.lang };
+        var txt = document.getElementById('cvAgainTxt');
+        txt.textContent = t('Mon CV et ma lettre ont déjà été envoyés à ', 'My resume and cover letter have already been sent to ');
+        var b = document.createElement('strong'); b.textContent = payload.email; txt.appendChild(b);
+        txt.appendChild(document.createTextNode(t(' récemment. Pensez à vérifier vos spams. Voulez-vous les recevoir à nouveau ?', ' recently. Please check your spam folder. Would you like to receive them again?')));
+        againMsg.textContent = '';
+        show('cvAgain');
+        return;
+      }
+      pending = null;
+      show('cvDone');
       form.reset();
     }).catch(function(err){
-      msg.className = 'cv-msg err';
-      msg.textContent = err.message === 'invalid_email'
+      out.className = 'cv-msg err';
+      out.textContent = err.message === 'invalid_email'
         ? t('Cette adresse e-mail ne semble pas valide.', 'This email address does not look valid.')
+        : err.message === 'too_many'
+        ? t("Les documents ont déjà été renvoyés plusieurs fois à cette adresse. Réessayez plus tard ou écrivez-moi à roumbop@gmail.com.", 'The documents have already been resent several times to this address. Please try again later or email me at roumbop@gmail.com.')
         : t("L'envoi n'a pas abouti. Vous pouvez télécharger le CV ou m'écrire à roumbop@gmail.com.", 'Sending failed. You can download the resume or email me at roumbop@gmail.com.');
-    }).finally(function(){ submit.disabled = false; submit.innerHTML = label; });
-  });
+    }).finally(function(){ button.disabled = false; button.innerHTML = label; });
+  }
 })();
 </script>
 </body>
