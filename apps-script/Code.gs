@@ -51,7 +51,8 @@ function doPost(e) {
     lock.waitLock(10000);
     try {
       const cache = CacheService.getScriptCache();
-      const key = 'sent_' + Utilities.base64EncodeWebSafe(email);
+      // Une clé par langue : demander l'autre langue envoie directement, sans confirmation.
+      const key = 'sent_' + lang + '_' + Utilities.base64EncodeWebSafe(email);
       // Déjà envoyé récemment : le portfolio demande confirmation, puis rappelle avec resend: true.
       const sent = Number(cache.get(key) || 0);
       if (sent && !resend) return json_({ ok: true, already: true });

@@ -74,4 +74,4 @@ par ton URL `/exec`, puis commit et push. Fais un test complet sur le site avec 
 - **Modifier le message** : textes `TEXT.fr` / `TEXT.en` dans `Code.gs`, puis **Déployer** → **Gérer les déploiements** → crayon → **Nouvelle version** (un *nouveau* déploiement changerait l'URL).
 - **Changer un document** : remplace le PDF dans le dépôt en gardant le même nom de fichier. Rien d'autre à faire.
 - **Notifications** : à chaque envoi, tu reçois « Portfolio : CV + LM envoyés à … ». Pour les couper : `NOTIFY_TO: ''`.
-- **Anti-abus** : champ piège invisible contre les robots ; une même adresse n'est servie qu'une fois toutes les 12 h, sauf renvoi confirmé par le visiteur (2 max) ; 40 envois max par jour (Gmail gratuit ≈ 100 destinataires/jour).
+- **Anti-abus** : champ piège invisible contre les robots ; une même adresse n'est servie qu'une fois toutes les 12 h par langue, sauf renvoi confirmé par le visiteur (2 max) ; 40 envois max par jour (Gmail gratuit ≈ 100 destinataires/jour).
