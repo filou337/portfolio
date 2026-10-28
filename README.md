@@ -9,7 +9,7 @@ Consultant Data / Data Engineer — Azure Data Factory, Databricks, PySpark, Pow
 | | |
 |---|---|
 | Site | [filou337.github.io/portfolio](https://filou337.github.io/portfolio/) |
-| CV (PDF) | [Portfolio_Philippe_Roumbo.pdf](https://filou337.github.io/portfolio/Portfolio_Philippe_Roumbo.pdf) |
+| CV (PDF) | [Portfolio_Philippe_ROUMBO.pdf](https://filou337.github.io/portfolio/Portfolio_Philippe_ROUMBO.pdf) |
 | QR code | [qr_portfolio_sables.svg](qr_portfolio_sables.svg) |
 
 ## Contenu du dépôt
@@ -17,7 +17,7 @@ Consultant Data / Data Engineer — Azure Data Factory, Databricks, PySpark, Pow
 | Fichier | Description |
 |---|---|
 | `index.html` | Le portfolio — page autonome, bilingue FR/EN, thème clair/sombre |
-| `Portfolio_Philippe_Roumbo.pdf` | Version PDF imprimable |
+| `Portfolio_Philippe_ROUMBO.pdf` | Version PDF imprimable |
 | `qr_portfolio_sables.svg` | QR code renvoyant vers le portfolio |
 | `CV_…_FR.pdf` / `LM_…_FR.pdf` | CV et lettre de motivation en français (envoyés par e-mail) |
 | `CV_…_EN.pdf` / `Cover_Letter_…_EN.pdf` | Resume et cover letter en anglais (envoyés par e-mail) |

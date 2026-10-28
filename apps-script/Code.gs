@@ -88,7 +88,7 @@ function doGet() {
 
 function sendCv_(to, lang) {
   const attachments = CONFIG.ATTACHMENTS[lang].map(a =>
-    UrlFetchApp.fetch(CONFIG.BASE_URL + a.file).getBlob().setName(a.name));
+    UrlFetchApp.fetch(CONFIG.BASE_URL + a.file + '?v=' + Date.now()).getBlob().setName(a.name));
   const t = TEXT[lang];
   MailApp.sendEmail({
     to: to,
